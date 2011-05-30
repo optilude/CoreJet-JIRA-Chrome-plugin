@@ -1,0 +1,14 @@
+{
+  "name": "CoreJet JIRA extracter",
+  "version": "0.1",
+  "description": "Creates CoreJet test skeletons from scenarios on the current JIRA ticket page",
+  "browser_action": {
+    "default_icon": "logo.png",
+    "popup": "popup.html"
+  },
+  "permissions": [
+    "tabs",
+    "http://*/*",
+    "https://*/*"
+  ]
+}
