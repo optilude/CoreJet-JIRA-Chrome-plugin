@@ -49,15 +49,23 @@ ul.tabs li {
     var thenRegex     = /^\s*Then (.+)/i;
     var andRegex      = /^\s*And (.+)/i;
     
+	function isNumeric(char) {
+		var numbers = "0123456789";
+		return numbers.indexOf(char) >= 0;
+	}
+	
     function normalize(str) {
         var tokens = str.split(/[^a-zA-Z0-9_]/);
         var newStr = "";
+
         for(var i = 0; i < tokens.length; ++i) {
             newStr += tokens[i].charAt(0).toUpperCase() + tokens[i].slice(1);
         }
-        while (/\d/.test(newStr.charAt(0)){
-            newStr = newStr.substring(1);
-        }
+		
+		while (isNumeric(newStr.charAt(0))){
+				newStr = newStr.charAt(1).toUpperCase() + newStr.slice(2);
+		}
+
         return newStr;
     }
     
@@ -74,7 +82,7 @@ ul.tabs li {
                 "import org.corejet.annotations.StorySource;\n" + 
                 "import org.corejet.testrunner.CoreJetTestRunner;\n" + 
                 "import org.junit.runner.RunWith;\n" +
-                "import org.corejet.testrunner.CoreJetTestRunner;\n"
+                "import org.corejet.testrunner.CoreJetTestRunner;\n" +
                 "import org.corejet.annotations.StorySource;\n" +
                 "\n" +
                 "@RunWith(CoreJetTestRunner.class)\n" +
@@ -105,7 +113,7 @@ ul.tabs li {
                         javaCode += '    }\n\n';
                     }
 
-                    javaCode   += '        @NotImplementedYet\n';
+                    javaCode   += '    @NotImplementedYet\n';
                     javaCode   += '    @Scenario("' + scenarioMatch[1] + '")\n';
                     javaCode   += '    public static class ' + normalize(scenarioMatch[1]) + ' {\n\n';
                     
