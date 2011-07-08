@@ -49,12 +49,23 @@ ul.tabs li {
     var thenRegex     = /^\s*Then (.+)/i;
     var andRegex      = /^\s*And (.+)/i;
     
+	function isNumeric(char) {
+		var numbers = "0123456789";
+		return numbers.indexOf(char) >= 0;
+	}
+	
     function normalize(str) {
-        var tokens = str.split(/[^a-zA-Z1-9_]/);
+        var tokens = str.split(/[^a-zA-Z0-9_]/);
         var newStr = "";
+
         for(var i = 0; i < tokens.length; ++i) {
             newStr += tokens[i].charAt(0).toUpperCase() + tokens[i].slice(1);
         }
+		
+		while (isNumeric(newStr.charAt(0))){
+				newStr = newStr.charAt(1).toUpperCase() + newStr.slice(2);
+		}
+
         return newStr;
     }
     
@@ -71,9 +82,12 @@ ul.tabs li {
                 "import org.corejet.annotations.StorySource;\n" + 
                 "import org.corejet.testrunner.CoreJetTestRunner;\n" + 
                 "import org.junit.runner.RunWith;\n" +
+                "import org.corejet.testrunner.CoreJetTestRunner;\n" +
+                "import org.corejet.annotations.StorySource;\n" +
                 "\n" +
                 "@RunWith(CoreJetTestRunner.class)\n" +
                 '@Story(id="' + request.key + '", title="' + request.title + '")\n' +
+                "@StorySource(JiraStoryRepository.class)\n"+
                 "public class " + normalize(request.key) + " {\n" +
                 "\n";
             
@@ -98,7 +112,8 @@ ul.tabs li {
                     if(inScenario) {
                         javaCode += '    }\n\n';
                     }
-                    
+
+                    javaCode   += '    @NotImplementedYet\n';
                     javaCode   += '    @Scenario("' + scenarioMatch[1] + '")\n';
                     javaCode   += '    public static class ' + normalize(scenarioMatch[1]) + ' {\n\n';
                     
@@ -112,8 +127,7 @@ ul.tabs li {
                 
                 var givenMatch = givenRegex.exec(line);
                 if(givenMatch != null) {
-                    
-                    javaCode   += '        @NotImplementedYet\n';
+
                     javaCode   += '        @Given("' + givenMatch[1] + '")\n';
                     javaCode   += '        public void given' + normalize(givenMatch[1]) + '() {\n'
                     javaCode   += '            \n';
@@ -130,7 +144,6 @@ ul.tabs li {
                 var whenMatch = whenRegex.exec(line);
                 if(whenMatch != null) {
 
-                    javaCode   += '        @NotImplementedYet\n';
                     javaCode   += '        @When("' + whenMatch[1] + '")\n';
                     javaCode   += '        public void when' + normalize(whenMatch[1]) + '() {\n'
                     javaCode   += '            \n';
@@ -147,7 +160,6 @@ ul.tabs li {
                 var thenMatch = thenRegex.exec(line);
                 if(thenMatch != null) {
 
-                    javaCode   += '        @NotImplementedYet\n';
                     javaCode   += '        @Then("' + thenMatch[1] + '")\n';
                     javaCode   += '        public void then' + normalize(thenMatch[1]) + '() {\n'
                     javaCode   += '            \n';
@@ -164,7 +176,6 @@ ul.tabs li {
                 var andMatch = andRegex.exec(line);
                 if(andMatch != null) {
 
-                    javaCode   += '        @NotImplementedYet\n';
                     javaCode   += '        @' + normalize(previousStep) + '("' + andMatch[1] + '")\n';
                     javaCode   += '        public void ' + previousStep + normalize(andMatch[1]) + '() {\n'
                     javaCode   += '            \n';
