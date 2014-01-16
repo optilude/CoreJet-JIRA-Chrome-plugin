@@ -1,8 +1,8 @@
 var key = $("#key-val").text();
-var title = $("#issue_header_summary a").text();
+var title = $("#summary-val").text();
 var criteria = "";
 
-$("li.item .value.type-textarea .flooded").each(function() {
+$("li.item .flooded").each(function() {
     if(criteria != "") {
         return;
     }
