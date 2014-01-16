@@ -1,14 +1,13 @@
 {
-  "name": "CoreJet JIRA extracter",
-  "version": "0.2",
-  "description": "Creates CoreJet test skeletons from scenarios on the current JIRA ticket page",
-  "browser_action": {
-    "default_icon": "logo.png",
-    "popup": "popup.html"
-  },
-  "permissions": [
-    "tabs",
-    "http://*/*",
-    "https://*/*"
-  ]
+   "browser_action": {
+      "default_icon": "logo.png",
+      "default_popup": "popup.html"
+   },
+   "description": "Creates CoreJet test skeletons from scenarios on the current JIRA ticket page",
+   "key": "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCnYvlTbaU2OHvnWvZEHq6TBYkzwlbrsmZEYJb8TV4ckBCFQmCGXnQE0rlDL4J8zaFdDK7s9wIuK5KKr3wJ0POid+/TEjeoKKZ6GcmF0SoQJulX7mJGXYj2iwNuh8dkW1ddCqBz6ehkK22z4CRB3DEqsRgRhVR55fseAM8IUE1ENQIDAQAB",
+   "manifest_version": 2,
+   "name": "CoreJet JIRA extracter",
+   "permissions": [ "tabs", "http://*/*", "https://*/*" ],
+   "update_url": "https://clients2.google.com/service/update2/crx",
+   "version": "1.1"
 }
